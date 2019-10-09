@@ -3,5 +3,7 @@ const route = express.Router()
 const tarefaController = require('../controllers/tarefaController')//importo a pasta
 
 route.get('/', tarefaController.listar)//chamo o metodo listar toda vez que colocar o / no final na urn
+route.get('/:id', tarefaController.listarPorId)//listo por id, o :id significa que é um parametro
+route.post('/', tarefaController.inserir)
 
 module.exports = route//exporto o modulo ^ que criei com uma unica função

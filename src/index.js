@@ -2,10 +2,21 @@ const express = require('express')//importando o express
 const app = express()//crio uma variavel do tipo express
 require('dotenv').config()//gerenciar o .gitgnore
 const morgan = require('morgan')//importo o morgan que ajuda a debugar a api
+const YAM = require('yamljs')//processar arquivos .yml
+const swaggerUI = require('swagger-ui-express')//formata esse arquivo
+const bodyParser = require('body-parser')
+
+
+app.use(bodyParser.json())//pega tudo do corpo e transforma em json
+app.use(bodyParser.urlencoded({extended : true}))
+
 //minha senha do sql é Suporte99
 //usar firefox
 
 app.use(morgan('combined'))//toda hora que acessar ai eu gero um log
+//documentação-----------------------------
+const swaggerDocument = YAM.load('./docs/swagger.yml')
+app.use('/api/v1/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 //rotas-----------------------------------------
 const tarefaRoute = require('./routes/tarefaRoute')
